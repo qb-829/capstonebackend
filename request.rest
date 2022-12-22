@@ -1,0 +1,11 @@
+GET  http://localhost:3000/Display
+
+POST http://localhost:3000/Display
+Content-Type: application/json
+
+{
+    "username": "Riya",
+    "artistname": "Jeezy",
+    "songname": "Then What",
+    "genre": "",
+}
