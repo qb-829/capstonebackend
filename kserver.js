@@ -1,5 +1,4 @@
 const express = require ('express');
-const SpotifyWebApi = require('spotify-web-api-node');
 const Sequelize = require('sequelize');
 const { Playlists } = require('../Display');
 const app = express();

@@ -1,0 +1,36 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('partials/head.ejs') %>
+</head>
+<body>
+    <div class="d-flex flex-row col-container">
+        <div class="d-flex flex-column col-container">
+            <div>
+                <h1>This is a secure page</h1>
+            </div>
+            <div class="d-flex flex-column col-container">
+                <h3>Users List</h3>
+                <% userData.forEach(user => { %>
+                   
+                    <% if (user.username == userName) { %>
+                        <li>
+                            <%= user.id %> <%= user.firstName %> <%= user.lastName %>
+                        </li>
+                    <% } else { %>
+                        <h2> <%= userName %> was not found</h2>
+                    <% } %>
+                <% }) %>
+            </div>
+            <br />
+            <form action="/logout" method="GET">
+                <button type="submit" class="btn btn-danger" >
+                    Logout!
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
