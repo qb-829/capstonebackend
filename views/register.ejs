@@ -1,0 +1,41 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('partials/head.ejs') %> 
+</head>
+<body>
+    <form action="/register" method="POST">
+        <h2>Register</h2>
+        <div class="input-field">
+            <input 
+                type="text" 
+                name="firstName" 
+                id="firstName" 
+                placeholder="Enter your first name" 
+                title="letters or numbers (no special characters) between 4 and 12 characters"
+                pattern="[A-Za-z0-9]{3,12}"
+                required
+            >
+        </div>
+        <div class="input-field">
+            <input type="text" name="lastName" id="lastName" placeholder="Enter your last name">
+        </div>
+        <div class="input-field">
+            <input type="email" name="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="input-field">
+            <input type="text" name="username" id="username" placeholder="Enter a username">
+        </div>
+        <div class="input-field">
+            <input type="password" name="password" id="password" placeholder="Enter a password" title="letters or numbers (no special characters) between 4 and 12 characters"
+            pattern="[A-Za-z0-9]{4,23}"
+            required>
+        </div>
+        <br />
+        <button class="btn btn-primary" type="submit">Register</button>
+
+    </form>
+</body>
+</html>
