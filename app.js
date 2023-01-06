@@ -40,6 +40,7 @@ app.use(
 
 app.use(require('./routes/authentication'));
 app.use(require('./routes/review'));
+// app.use(require('./routes/playlist'));
 
 
 app.listen(port, () => {

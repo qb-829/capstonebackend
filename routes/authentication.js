@@ -6,7 +6,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt'); //used to encrypt passwords
 
 // import db module
-const { User } = require('../helpers/dbConnection.js');
+const { User, Playlist } = require('../helpers/dbConnection.js');
+
+console.log(User);
 
 
 // middleware that is specific to this router
@@ -30,6 +32,8 @@ router.post('/register', async (req, res) => {
         const { email, username, password } = req.body;
         // The order of the variables DOES matter
         // console.log(password);
+
+        console.log("I'm in register");
 
         const records = await User.findAll({where: {email: email}});
         // console.log(records.length);
@@ -60,7 +64,7 @@ router.post('/register', async (req, res) => {
             console.log('Email already exists');
 
             // return res.status(422).send({error: 'Email already exits'})
-            return res.status(422).send(`<h2>Email already exits: ${error}</h2>`)
+            return res.status(422).send(`<h2>Email already exits</h2>`)
         }
 
 
