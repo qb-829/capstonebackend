@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt'); //used to encrypt passwords
 // import db module
 const { User, Playlist } = require('../helpers/dbConnection.js');
 
-console.log(User);
+console.log('USER',User);
 
 
 // middleware that is specific to this router
@@ -27,7 +27,8 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-
+    console.log('register route')
+    console.log(req.body);
     try {
         const { email, username, password } = req.body;
         // The order of the variables DOES matter
@@ -47,7 +48,7 @@ router.post('/register', async (req, res) => {
                     return res.redirect('register');
                 }
                 else {
-                    const newUser = await User.create({
+                    await User.create({
                         email: email, 
                         username: username, 
                         password: hash
@@ -57,7 +58,8 @@ router.post('/register', async (req, res) => {
             })
 
             // on success go to login page
-            return res.redirect(`login`);
+            // return res.redirect(`login`);
+            return res.send(`login`);
         }
         else {
             //email was found in our db, return an error

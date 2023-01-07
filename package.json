@@ -28,12 +28,11 @@
     "express-session": "^1.17.3",
     "helmet": "^6.0.1",
     "pg": "^8.8.0",
-    "sequelize": "^6.27.0",
     "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
-    "sequelize-cli": "^6.5.2"
+    "sequelize": "^6.27.0"
   },
   "description": ""
 }

@@ -14,13 +14,18 @@ const port = process.env.PORT;
 
 //body-parser
 //scrape email and password form request header using html form
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: false}));
 //scrape email and password form request header using Postman api
 app.use(express.json());
 
 //setup public folder
 app.use(express.static('./public'));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
