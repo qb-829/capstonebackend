@@ -1,24 +1,24 @@
 const express = require("express");
 const router = express.Router();
 
-const { Playlist } = require("../helpers/dbConnection.js");
+const { db } = require("../helpers/dbConnection.js");
 
 // import db module
 // const { User } = require('../helpers/dbConnection.js');
 function requireAuth(req, res, next) {
   // some cool security logic code here
-  if(req.session.user) next();
+  if (req.session.user) next();
   // no user info then go to login
-  else if(!req.session.user) {
-      req.session.destroy();
-      console.log("You're not logged in1")
-      return res.redirect('/login');
+  else if (!req.session.user) {
+    req.session.destroy();
+    console.log("You're not logged in1");
+    return res.redirect("/login");
   }
   // not logged-in or any other reason
   else {
-      req.session.destroy();
-      console.log("You're not logged in2")
-      return res.redirect('/register');
+    req.session.destroy();
+    console.log("You're not logged in2");
+    return res.redirect("/register");
   }
 }
 
@@ -28,42 +28,51 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-router.post("/users", requireAuth, async (req, res) => {
+router.post("/create", async (req, res) => {
+  // router.post("/create", requireAuth, async (req, res) => {
   // req.body contains an Object with firstName, lastName, email
-  console.log('users hit')
-  const { artistName, songName, genre } = req.body;
-  const newPlaylist = await Playlist.create({
-    artistName,
-    songName,
-    genre,
-  });
-  res.send("I'm in /users Route")
-  res.json({
-    id: newPlaylist.id,
-  });
+  console.log("create hit");
+
+  try {
+    const { artistName, songName, genre } = req.body;
+
+    const newPlaylist = await db.Playlist.create({
+      artistName,
+      songName,
+      genre,
+    });
+
+    console.log(newPlaylist);
+
+    res.send("I'm in /create Route");
+    res.json({
+      id: newPlaylist.id,
+    });
+  } catch (error) {}
 });
 
 router.get("/myplaylist", async (req, res) => {
-  // const playlist = await Playlist.findAll();
+  // const playlist = await db.Playlist.findAll();
   // res.json(playlist);
   console.log("I'm in /MyPlaylist Route");
 
-  const records = await User.findAll({where: {username: req.session.username}});
+  const records = await db.Playlist.findAll(req.body);
   // console.log(records.length);
-  
+
   console.log(records);
 
-
-  res.send("I'm in /MyPlaylist Route")
+  // res.send("I'm in /MyPlaylist Route");
+  res.json(records);
+ 
 });
 
 //Updating Existing User Playlist
 router.post("/myplaylist/:id", async (req, res) => {
   const { id } = req.params;
-
+  console.log(id);
   // Assuming that `req.body` is limited to
   // the keys firstName, lastName, and email
-  const updatedPlaylist = await Playlist.update(req.body, {
+  const updatedPlaylist = await db.Playlist.update(req.body, {
     where: {
       id,
     },

@@ -14,7 +14,7 @@ const port = process.env.PORT;
 
 //body-parser
 //scrape email and password form request header using html form
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 //scrape email and password form request header using Postman api
 app.use(express.json());
 
