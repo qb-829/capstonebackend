@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "username": "alewwcoz",
+    "password": "tQXA0k-k85BCZq76A4ehdgGEdCE-BTiL",
+    "database": "alewwcoz",
+    "host": "queenie.db.elephantsql.com",
     "dialect": "postgres"
   },
   "test": {

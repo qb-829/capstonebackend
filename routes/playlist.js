@@ -62,7 +62,7 @@ router.get("/myplaylist", async (req, res) => {
   console.log(records);
 
   // res.send("I'm in /MyPlaylist Route");
-  res.json(records);
+  return res.json({records });
  
 });
 

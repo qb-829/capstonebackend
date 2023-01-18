@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
     console.log(req.body);
     try {
         const { email, username, password } = req.body;
-        console.log(email)
+        console.log('email', email)
         // The order of the variables DOES matter
         // console.log(password);
 
@@ -46,21 +46,24 @@ router.post('/register', async (req, res) => {
                 // add to database
                 if(error) {
                     console.log(`error with the hash: ${error}`);
-                    return res.redirect('register');
+                    console.log(records)
+                    return res.send('something went wrong')
+                    // return res.json(records);
                 }
                 else {
-                    await db.User.create({
+                    const newUser = await db.User.create({
                         email: email, 
                         username: username, 
                         password: hash
                     });
-                    // console.log(newUser);
+                    console.log(newUser);
+                    return res.json(newUser);
                 }
             })
 
             // on success go to login page
             // return res.redirect(`login`);
-            return res.send(`login`);
+            // return res.json(records);
         }
         else {
             //email was found in our db, return an error
@@ -96,27 +99,31 @@ router.post('/login', async (req, res) => {
         // console.log('db password', records[0].dataValues.password);
 
         if(records !== null) {
+            console.log("In login - there's a record");
 
             try {
                 const isMatch = await bcrypt.compare(password, records[0].password);
                 // let isMatch = false;
-                if(password === records[0].password) isMatch = true
+                // if(password === records[0].password) isMatch = true
                 if(isMatch) {
                     // assign the username to create the session
                     req.session.user = username
                     // console.log(req.session.user)
                     // return res.redirect('review');
-                    return res.send('finally worked');
+                    // return res.send('finally worked');
+                    return res.json(records);
                 }
                 else if(!isMatch) {
                     // Passwords don't match, back to login
                     console.log(`Passwords don't match`);
-                    return res.redirect('login');
+                    // return res.redirect('login');
+                    return res.send('error with password');
                 }
             } catch (error) {
                 //no user found, go to register, can't access db, etc
                 console.log(`No records found for user: ${username}`);
-                    return res.redirect('register');
+                    // return res.redirect('register');
+                    return res.send('error with password');
             }
         }
 
